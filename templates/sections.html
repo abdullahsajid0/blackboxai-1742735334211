@@ -1,0 +1,217 @@
+<!-- Inventory Section -->
+<section id="inventory" class="section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Inventory Management</h2>
+            <button onclick="showAddProductModal()" class="btn btn-primary">
+                <i class="fas fa-plus mr-2"></i>Add Product
+            </button>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="flex gap-4 mb-6">
+            <div class="flex-1">
+                <input type="text" 
+                       placeholder="Search products..." 
+                       class="form-input"
+                       data-search="products"
+                       onkeyup="handleSearch(event)">
+            </div>
+            <div>
+                <select class="form-input" data-filter="category" onchange="handleFilter(event)">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="appliances">Home Appliances</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="overflow-x-auto">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Products will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Customers Section -->
+<section id="customers" class="section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Customer Management</h2>
+        </div>
+        
+        <!-- Search -->
+        <div class="mb-6">
+            <input type="text" 
+                   placeholder="Search customers..." 
+                   class="form-input"
+                   data-search="customers"
+                   onkeyup="handleSearch(event)">
+        </div>
+
+        <!-- Customers Table -->
+        <div class="overflow-x-auto">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>CNIC</th>
+                        <th>Address</th>
+                        <th>Total Purchases</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="customersTableBody">
+                    <!-- Customers will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Installments Section -->
+<section id="installments" class="section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Installment Management</h2>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="flex gap-4 mb-6">
+            <div class="flex-1">
+                <input type="text" 
+                       placeholder="Search by customer or product..." 
+                       class="form-input"
+                       data-search="installments"
+                       onkeyup="handleSearch(event)">
+            </div>
+            <div>
+                <select class="form-input" data-filter="status" onchange="handleFilter(event)">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="paid">Paid</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Installments Table -->
+        <div class="overflow-x-auto">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Due Date</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="installmentsTableBody">
+                    <!-- Installments will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Reports Section -->
+<section id="reports" class="section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Reports</h2>
+            <div class="flex gap-4">
+                <button onclick="generateReport('sales')" class="btn btn-secondary">
+                    <i class="fas fa-file-alt mr-2"></i>Sales Report
+                </button>
+                <button onclick="generateReport('inventory')" class="btn btn-secondary">
+                    <i class="fas fa-box mr-2"></i>Inventory Report
+                </button>
+                <button onclick="generateReport('installments')" class="btn btn-secondary">
+                    <i class="fas fa-clock mr-2"></i>Installments Report
+                </button>
+            </div>
+        </div>
+        
+        <!-- Date Range -->
+        <div class="flex gap-4 mb-6">
+            <div>
+                <label class="form-label">Start Date</label>
+                <input type="date" id="reportStartDate" class="form-input">
+            </div>
+            <div>
+                <label class="form-label">End Date</label>
+                <input type="date" id="reportEndDate" class="form-input">
+            </div>
+        </div>
+
+        <!-- Report Content -->
+        <div id="reportContent">
+            <!-- Report will be dynamically added here -->
+        </div>
+    </div>
+</section>
+
+<!-- Settings Section -->
+<section id="settings" class="section hidden">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6">Settings</h2>
+        
+        <form id="settingsForm" class="space-y-6">
+            <!-- Business Information -->
+            <div>
+                <h3 class="text-md font-medium text-gray-900 mb-4">Business Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="form-label">Business Name</label>
+                        <input type="text" name="businessName" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" name="businessPhone" class="form-input">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="form-label">Address</label>
+                        <textarea name="businessAddress" class="form-input" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Management -->
+            <div>
+                <h3 class="text-md font-medium text-gray-900 mb-4">Database Management</h3>
+                <div class="flex gap-4">
+                    <button type="button" onclick="backupDatabase()" class="btn btn-secondary">
+                        <i class="fas fa-download mr-2"></i>Backup Database
+                    </button>
+                    <button type="button" onclick="restoreDatabase()" class="btn btn-secondary">
+                        <i class="fas fa-upload mr-2"></i>Restore Database
+                    </button>
+                </div>
+            </div>
+
+            <!-- Save Settings -->
+            <div class="flex justify-end">
+                <button type="submit" class="btn btn-primary">
+                    Save Settings
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
