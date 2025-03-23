@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Management System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-gray-800">Sales Management</h1>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <button onclick="showSection('dashboard')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-chart-line mr-2"></i>Dashboard
+                        </button>
+                        <button onclick="showSection('cash-sale')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-money-bill-wave mr-2"></i>Cash Sale
+                        </button>
+                        <button onclick="showSection('installment-sale')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-clock mr-2"></i>Installment Sale
+                        </button>
+                        <button onclick="showSection('inventory')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-box mr-2"></i>Inventory
+                        </button>
+                        <button onclick="showSection('customers')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-users mr-2"></i>Customers
+                        </button>
+                        <button onclick="showSection('installments')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-tasks mr-2"></i>Installments
+                        </button>
+                        <button onclick="showSection('reports')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-file-alt mr-2"></i>Reports
+                        </button>
+                        <button onclick="showSection('settings')" class="nav-btn text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300">
+                            <i class="fas fa-cog mr-2"></i>Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Include all sections -->
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Total Sales Card -->
+                <div class="dashboard-card bg-blue-500 rounded-lg shadow p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-600">
+                            <i class="fas fa-shopping-cart text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-sm font-medium">Total Sales</h2>
+                            <p class="text-2xl font-semibold" id="totalSales">₨0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Installments Card -->
+                <div class="dashboard-card bg-green-500 rounded-lg shadow p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-600">
+                            <i class="fas fa-clock text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-sm font-medium">Active Installments</h2>
+                            <p class="text-2xl font-semibold" id="activeInstallments">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Stock Card -->
+                <div class="dashboard-card bg-red-500 rounded-lg shadow p-6 text-white">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-red-600">
+                            <i class="fas fa-exclamation-triangle text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-sm font-medium">Low Stock Items</h2>
+                            <p class="text-2xl font-semibold" id="lowStockItems">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Sales Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Recent Sales</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentSalesBody">
+                            <!-- Sales will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Due Installments Table -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Upcoming Installments</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Due Date</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="upcomingInstallmentsBody">
+                            <!-- Installments will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Include other sections from sections.html -->
+        <section id="cash-sale" class="section hidden">
+            <!-- Cash Sale content -->
+        </section>
+
+        <section id="installment-sale" class="section hidden">
+            <!-- Installment Sale content -->
+        </section>
+
+        <section id="inventory" class="section hidden">
+            <!-- Inventory content -->
+        </section>
+
+        <section id="customers" class="section hidden">
+            <!-- Customers content -->
+        </section>
+
+        <section id="installments" class="section hidden">
+            <!-- Installments content -->
+        </section>
+
+        <section id="reports" class="section hidden">
+            <!-- Reports content -->
+        </section>
+
+        <section id="settings" class="section hidden">
+            <!-- Settings content -->
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="addProductModal" class="modal hidden">
+        <!-- Modal content will be added via JavaScript -->
+    </div>
+
+    <div id="receiptModal" class="modal hidden">
+        <!-- Receipt content will be added via JavaScript -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
